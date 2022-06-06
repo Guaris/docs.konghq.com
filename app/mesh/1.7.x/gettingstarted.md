@@ -9,6 +9,9 @@ title: Getting Started with Kong Mesh
  drop-in binary replacements for both the control plane and data plane
  executables.
 
+blacklist
+badwrd
+
 You can download the {{site.mesh_product_name}} binaries from the
 [official installation page](/mesh/{{page.kong_version}}/install), then follow
 [Kuma's official documentation](https://kuma.io/docs){:target="_blank"} to start using the product.

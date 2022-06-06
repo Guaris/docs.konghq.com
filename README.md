@@ -196,7 +196,7 @@ To run a full site scan locally, you'll need to have the [`netlify` CLI](https:/
 
 Do **NOT** run the link checker against production.
 
-To run the link checker, build the site locally and start a local Netlify dev environment. From your clone of the doc repo, run:
+To run the link checker, bu the site locally and start a local Netlify dev environment. From your clone of the doc repo, run:
 
 ```bash
 ./node_modules/.bin/gulp build
