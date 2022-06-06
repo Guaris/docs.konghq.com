@@ -9,10 +9,19 @@ jobs:
     name: runner / vale
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: errata-ai/vale-action@v1
-        with:
-          # path where vale checks checking only modified files.
-          files: __onlyModified
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Get Changed Files
+      id: get_changed_files
+      uses: lots0logs/gh-action-get-changed-files@2.1.4
+    - name: List Commit Files
+      id: list_commit_files
+      run: |
+        echo "Vale will check the following files:"
+        cat ${HOME}/files.json
+    - name: Run Vale
+      uses: errata-ai/vale-action@v2.0.1
+      with:
+        files: __onlyModified
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
