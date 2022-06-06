@@ -10,7 +10,6 @@ CloudFormation
 Cognito
 config
 configs
-cors
 Curity
 Datadog
 dbless
