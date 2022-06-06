@@ -24,6 +24,6 @@ jobs:
     - name: Run Vale
       uses: errata-ai/vale-action@v2.0.1
       with:
-        files: __onlyModified
+        files: '${{ steps.get_changed_files.outputs.all }}'
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
