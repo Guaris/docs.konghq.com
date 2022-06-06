@@ -2,7 +2,7 @@ name: text-linting
 on:
   push:
     branches:
-      - vale-branch
+      - vale-branch-new-action
 
 jobs:
   vale:
