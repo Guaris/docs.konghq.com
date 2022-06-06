@@ -22,7 +22,7 @@ jobs:
         echo "Vale will check the following files:"
         cat ${HOME}/files.json
     - name: Run Vale
-      uses: errata-ai/vale-action@v2.0.1
+      uses: errata-ai/vale-action@v1
       with:
         files: '${{ steps.get_changed_files.outputs.all }}'
       env:

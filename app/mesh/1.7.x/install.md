@@ -13,6 +13,13 @@ On this page, you will find access to the official {{site.mesh_product_name}}
 distributions that provide a drop-in replacement to Kuma's native binaries, plus
 links to cloud marketplace integrations.
 
+
+blacklist
+whitelist
+kong
+k8s
+
+
 **The latest {{site.mesh_product_name}} version is
 {{page.kong_latest.version}}.**
 
