@@ -1,0 +1,14 @@
+extends: substitution
+message: Use '%s' instead of '%s'.
+level: error
+ignorecase: true
+swap:
+
+  kong: Kong
+  kong gateway: "{{site.base_gateway}}"
+  konnect: "{{site.konnect_short_name}}"
+  konnect cloud: "{{site.konnect_saas}}"
+  ServiceHub: Service Hub
+  kong konnect: "{{site.konnect_product_name}}"
+  konnect cloud: "{{site.konnect_saas}}"
+  kong inc.: "{{site.company_name}}"

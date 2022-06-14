@@ -38,8 +38,8 @@ jwks
 jwt
 Keycloak
 kong
+konnect
 Kong/kong
-Konnect
 kubectl
 kubernetes
 Kuma
