@@ -22,6 +22,7 @@ jQuery(function () {
       },
       700
     );
+    history.pushState({}, '', $(this).attr("href"));
   });
 
   // Active link
@@ -31,6 +32,19 @@ jQuery(function () {
     var activeNav = $(".docs-sidebar li a[href='" + url + "'], .docs-sidebar li a[href='" + urlNoSlash + "'] ").addClass("active");
     activeNav.parents(".accordion-item").addClass("active");
   };
+
+  // Open active sidebar section in left nav
+  $(".docs-sidebar a.active, li.accordion-item.active").each(function (
+    index,
+    a
+  ) {
+    $(a)
+      .parents("li.accordion-item")
+      .each(function (index, item) {
+        $(item).addClass("active");
+        $(item).find("> input").prop("checked", true);
+      });
+  });
 
 // Function to close menus on pressing the "Escape" key
   function closeDropdownOnEscape () {
@@ -403,19 +417,30 @@ $("a[data-filter]").on("keypress", function(e) {
     if ($window.width() <= 1099) {
       mobileTable();
     }
+
+    if ($window.width() > 1099) {
+      $("table").each(function (index, value) {
+        $(this).removeClass("mobile");
+      });
+    }
   }));
 
   function mobileTable() {
     $("table").each(function (index, value) {
+      $(this).addClass("mobile");
       var headerCount = $(this).find("thead th").length;
 
       for (i = 0; i <= headerCount; i++) {
-        var headerLabel = $(this)
-          .find("thead th:nth-child(" + i + ")")
-          .text();
+
+        var headerLabel = $(this).find("thead th:nth-child(" + i + ") .mobile-label").text();
+        if (!headerLabel){
+          headerLabel = $(this)
+            .find("thead th:nth-child(" + i + ")")
+            .text();
+        }
 
         $(this)
-          .find("tr td:not([colspan]):nth-child(" + i + ")")
+          .find("tr td:not([colspan],.no-mobile,.header-row):nth-child(" + i + ")")
           .replaceWith(function () {
             return $('<td data-label="' + headerLabel + '">').append(
               $(this).contents()
@@ -455,7 +480,40 @@ $("a[data-filter]").on("keypress", function(e) {
   const navtabs = $("div[data-navtab-id]");
 
   navtabs.on("click", function () {
-    const navtabTitle = $(this);
+     activateNavTab($(this))
+  });
+
+  navtabs.on("keypress", function(e) {
+    if (e.keyCode === 13) {
+      activateNavTab($(this))
+    }
+  });
+
+  function activateNavTab(navtabTitle, skipScroll) {
+    // Toggle all nav tabs that match this title
+    const text = navtabTitle.text();
+    const search = $(".navtab-title").filter(function () {
+      return $(this).text().toLowerCase().indexOf(text.toLowerCase()) >= 0;
+    }).each(function(k,v){
+      activateSingleNavTab($(v));
+    });
+
+    const elementTop = navtabTitle.offset().top;
+    const elementBottom = elementTop + navtabTitle.outerHeight();
+    const screenTop = $(window).scrollTop();
+    const screenBottom = $(window).scrollTop() + $(window).innerHeight();
+
+    if (!skipScroll){
+      // If the element isn't on screen, scroll to it
+      if (elementBottom < screenTop || elementTop > screenBottom){
+          $([document.documentElement, document.body]).animate({
+            scrollTop: elementTop - 120
+        }, 0);
+      }
+    }
+  }
+
+  function activateSingleNavTab(navtabTitle){
     const navtabID = navtabTitle.data("navtab-id");
     const navtabContent = $(`div[data-navtab-content='${navtabID}']`);
 
@@ -468,31 +526,64 @@ $("a[data-filter]").on("keypress", function(e) {
     navtabTitle.addClass("active");
     navtabContent.siblings().css("display", "none");
     navtabContent.css("display", "block");
-  });
-
-  navtabs.on("keypress", function(e) {
-    const navtabTitle = $(this);
-    const navtabID = navtabTitle.data("navtab-id");
-    const navtabContent = $(`div[data-navtab-content='${navtabID}']`);
-
-    if (e.keyCode === 13) {
-      navtabTitle.siblings().removeClass("active");
-      navtabTitle.addClass("active");
-      navtabContent.siblings().css("display", "none");
-      navtabContent.css("display", "block");
-    }
-  });
+  }
 
   // set first navtab as active
+  // This MUST happen before setting navtab via URL as there may be
+  // a mix of tabs on a page e.g. use-admin-api/use-deck and curl/httpie
   $(".navtabs").each(function (index, navtabs) {
     $(navtabs).find("div[data-navtab-content]").css("display", "none");
-
     const navtabsTabs = $(navtabs).find("div[data-navtab-id]");
     navtabsTabs.first().addClass("active");
     $(
       `div[data-navtab-content='${navtabsTabs.first().data("navtab-id")}']`
     ).css("display", "block");
   });
+
+
+  // Ability to set NavTab via URL
+  const getParams = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+
+  if (getParams.tab) {
+    const matches = decodeURI(getParams.tab).toLowerCase().split(",");
+    for (const i in matches){
+      const navTab = $(".navtab-title[data-slug='"+matches[i]+"']").first();
+      if (navTab.length){
+        activateNavTab(navTab);
+      }
+    }
+  }
+
+  // Handle EE/OSS Sidebar switcher
+  const ossEeToggle = $("#oss-ee-toggle");
+  if ($(".external-trigger").length){
+    ossEeToggle.show();
+  }
+
+  ossEeToggle.on("click", function(){
+    const t = $(this);
+    const current = t.data('current');
+    let next;
+    let slug;
+    if (current == "Enterprise" || !current){
+      next = "OSS";
+      slug = "kong-gateway-oss";
+    } else {
+      next = "Enterprise";
+      slug = "kong-gateway";
+    }
+    t.data('current', next);
+    t.find("#switch-to-version").text(current);
+
+    activateNavTab($(".navtab-title[data-slug='"+slug+"']").first(), true)
+  });
+
+  if (getParams.install == "oss" && ossEeToggle.is(":visible")) {
+    ossEeToggle.click();
+  }
+
 
   /**
    * Expandable images
@@ -506,7 +597,6 @@ $("a[data-filter]").on("keypress", function(e) {
    * To disable for whole page you can add 'disable_image_expand: true' to page Front Matter block. Example:
    * ---
    * title: Install Kong Enterprise
-   * toc: false
    * disable_image_expand: true
    * ---
    */
@@ -583,114 +673,12 @@ $("a[data-filter]").on("keypress", function(e) {
     }
   });
 
-  /**
-   * Edition based element visibility
-   *
-   * Usage in markdown files:
-   * Wrap any of the [content] within {% edition [edition] %}[content]{% endedition %} to see the content
-   * only when edition=[edition] query parameter is specified.
-   *
-   * Example:
-   * {% edition gateway-oss %}
-   * ### {{site.ce_product_name}}
-   * {{site.ce_product_name}} is an open-source, lightweight API gateway optimized for microservices, delivering unparalleled...
-   * {% endedition %}
-   *
-   * Usage in docs_nav_.yml files:
-   * Use edition: [edition] property for specific item which should be visible
-   * only when edition=[edition] query parameter is specified.
-   *
-   * Example:
-   * - title: Getting Started Guide
-   *   icon: /assets/images/icons/documentation/icn-quickstart-color.svg
-   *   items:
-   *     - text: Overview
-   *       url: /overview
-   *     - text: Prepare to Administer
-   *       url: /prepare
-   *       edition: enterprise
-   *     - text: Expose your Services
-   *       url: /expose-services
-   *       edition: gateway-oss
-   */
-  const edition = decodeURIComponent(window.location.search)
-    .substring(1)
-    .split("&")
-    .map((queryParam) => queryParam.split("="))
-    .filter((params) => params[0] === "edition")
-    .map((params) => params[1])[0];
-
-  const editionSwitch = $(".edition-switch");
-  editionSwitch.on("click", function () {
-    if (edition === "gateway-oss") {
-      window.location.search = "?edition=enterprise";
-    } else {
-      window.location.search = "?edition=gateway-oss";
-    }
-  });
-
-  if (edition) {
-    $("*[data-edition]")
-      .not(`[data-edition="${edition}"]`)
-      .each(function (index, element) {
-        element.style.display = "none";
-      });
-    editionSwitch.addClass(edition);
-  }
 });
-
-jQuery(function () {
-  var closed = localStorage.getItem("closebanner-hackathon");
-  if (
-    closed !== "closebanner"
-  ) {
-    $(".navbar-v2").removeClass("closed");
-    $("body").addClass("banner");
-  } else {
-    $(".navbar-v2").addClass("closed");
-    $("body").removeClass("banner");
-  }
-
-  // open docs sidebar items
-  $(".docs-sidebar a.active, li.accordion-item.active").each(function (
-    index,
-    a
-  ) {
-    $(a)
-      .parents("li.accordion-item")
-      .each(function (index, item) {
-        $(item).addClass("active");
-        $(item).find("> input").prop("checked", true);
-      });
-  });
-});
-
-var scrolling = false;
-$(document).on("scroll", function () {
-  scrolling = true;
-});
-
-setInterval(function () {
-  if (scrolling) {
-    scrolling = false;
-    if ($(document).scrollTop() < 85) {
-      $(".navbar-v2").removeClass("compress");
-    } else {
-      $(".navbar-v2").addClass("compress");
-    }
-  }
-}, 10);
-
-$(".closebanner").on("click", function () {
-  $(".navbar-v2").addClass("closed");
-  localStorage.setItem("closebanner-hackathon", "closebanner");
-});
-
 
 // Tooltips for badges
 jQuery(function () {
     $('.badge.enterprise')
-      .append( '<div class="tooltip"><span class="tooltiptext">Available with Enterprise subscription</span></div>' );
+      .append( '<div class="tooltip"><span class="tooltiptext">Available with Enterprise subscription - <a target="_blank" href="https://konghq.com/contact-sales">Contact Sales</a></span></div>' );
     $('.badge.plus')
       .append( '<div class="tooltip"><span class="tooltiptext">Available with Plus subscription (Konnect Cloud)</span></div>' );
     $('.badge.free')
@@ -699,4 +687,6 @@ jQuery(function () {
       .append( '<div class="tooltip"><span class="tooltiptext" >Available in Kong open-source only</span></div>' );
     $('.badge.dbless')
       .append( '<div class="tooltip"><span class="tooltiptext">Compatible with DB-less deployments</span></div>' );
+    $('.badge.konnect')
+      .append( '<div class="tooltip"><span class="tooltiptext">Available in the Konnect Cloud app</span></div>' );
 });

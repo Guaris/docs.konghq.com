@@ -202,6 +202,7 @@
 /konnect/dev-portal/developers/dev-reg                     /konnect/dev-portal/access-and-approval/dev-reg
 /konnect/dev-portal/administrators/manage-devs             /konnect/dev-portal/access-and-approval/manage-devs
 /konnect/dev-portal/administrators/auto-approve-devs-apps  /konnect/dev-portal/access-and-approval/auto-approve-devs-apps
+/konnect/dev-portal/customization/customization-overview/   /konnect/dev-portal/customization/appearance/
 
 /enterprise/*/developer-portal/networking     /gateway/latest/reference/configuration/#developer-portal-section
 /enterprise/2.6.x/developer-portal/configuration/networking     /gateway/latest/reference/configuration/#developer-portal-section
@@ -225,8 +226,10 @@
 /enterprise/2.6.x/developer-portal/*                       /gateway/2.6.x/developer-portal/:splat
 /enterprise/2.7.x/developer-portal/*                       /gateway/2.7.x/developer-portal/:splat
 /enterprise/latest/developer-portal/*                      /gateway/latest/developer-portal/:splat
+/gateway/2.7.x/developer-portal/files-api/                 /gateway/2.7.x/developer-portal/portal-api/
 
 # GATEWAY REFERENCES
+/vaults/                               /gateway/latest/vaults
 /admin-api/                            /gateway/latest/admin-api
 /admin-api/*                           /gateway/latest/admin-api/:splat
 /2.6.x/admin-api/                      /gateway/latest/admin-api
@@ -437,6 +440,22 @@
 # VITALS
 /enterprise/2.1.x/admin-api/vitals/vitals-influx-strategy     /gateway/latest/vitals/vitals-influx-strategy
 /enterprise/2.1.x/admin-api/vitals/vitals-prometheus-strategy /gateway/latest/vitals/vitals-prometheus-strategy
+/enterprise/2.1.x/admin-api/vitals     /enterprise/2.1.x/vitals/overview
+/enterprise/2.1.x/admin-api/vitals/*   /enterprise/2.1.x/vitals/overview
+/enterprise/2.2.x/admin-api/vitals     /enterprise/2.2.x/vitals/overview
+/enterprise/2.2.x/admin-api/vitals/*   /enterprise/2.2.x/vitals/overview
+/enterprise/2.3.x/admin-api/vitals     /enterprise/2.3.x/vitals/overview
+/enterprise/2.3.x/admin-api/vitals/*   /enterprise/2.3.x/vitals/overview
+/enterprise/2.4.x/admin-api/vitals     /enterprise/2.4.x/vitals/overview
+/enterprise/2.4.x/admin-api/vitals/*   /enterprise/2.4.x/vitals/overview
+/enterprise/2.5.x/admin-api/vitals     /enterprise/2.5.x/vitals/overview
+/enterprise/2.5.x/admin-api/vitals/*   /enterprise/2.5.x/vitals/overview
+/enterprise/2.6.x/admin-api/vitals     /enterprise/2.6.x/vitals/overview
+/enterprise/2.6.x/admin-api/vitals/*   /enterprise/2.6.x/vitals/overview
+/gateway/2.6.x/admin-api/vitals     /gateway/2.6.x/vitals/
+/gateway/2.6.x/admin-api/vitals/*   /gateway/2.6.x/vitals/
+/gateway/2.7.x/admin-api/vitals     /gateway/2.7.x/vitals/
+/gateway/2.7.x/admin-api/vitals/*   /gateway/2.7.x/vitals/
 /enterprise/2.6.x/vitals     /gateway/2.6.x/vitals/
 /enterprise/2.6.x/vitals/*   /gateway/2.6.x/vitals/:splat
 /enterprise/2.7.x/vitals     /gateway/2.7.x/vitals/
@@ -446,11 +465,15 @@
 /enterprise/2.6.x/vitals/overview     /gateway/2.6.x/vitals/
 /enterprise/2.7.x/vitals/overview     /gateway/2.7.x/vitals/
 /enterprise/latest/vitals/overview    /gateway/latest/vitals/
+/gateway/latest/admin-api/vitals     /gateway/latest/vitals/
+/gateway/latest/admin-api/vitals/*   /gateway/latest/vitals/
 
 
 # KONG MESH
 /mesh/1.0.x/features/   /mesh/1.0.x/features/vault
 /mesh/1.1.x/features/   /mesh/1.1.x/features/vault
+/mesh/*/features/windows/     /mesh/latest/installation/windows/
+/mesh/latest/features/windows/ /mesh/latest/installation/windows/
 
 
 # ABOUT
@@ -588,6 +611,7 @@
 /gateway-oss/2.6.x/db-encryption/      /gateway/2.6.x/plan-and-deploy/security/db-encryption
 /gateway-oss/2.7.x/db-encryption/      /gateway/2.7.x/plan-and-deploy/security/db-encryption
 /gateway-oss/latest/db-encryption/     /gateway/latest/plan-and-deploy/security/db-encryption
+/gateway-oss/latest/secrets-management/     /gateway/latest/plan-and-deploy/security/secrets-management/getting-started
 /enterprise/2.6.x/start-kong-securely/    /gateway/2.6.x/plan-and-deploy/security/start-kong-securely
 /enterprise/2.7.x/start-kong-securely/    /gateway/2.7.x/plan-and-deploy/security/start-kong-securely
 /enterprise/latest/start-kong-securely/   /gateway/latest/plan-and-deploy/security/start-kong-securely

@@ -4,8 +4,8 @@
   <!--also uncomment the promo banner sections in app/assets/stylesheets/header.less and gulpfile.js-->
   <div id="promo-banner">
     <div class="container">
-      <div class="closebanner"></div> <strong><label>NEW</label> The Kong Gateway OSS and Enterprise docs are now combined! &nbsp;&mdash;<a
-          href="/gateway/">See the docs &rarr;</a></strong>
+      <div class="closebanner"></div> <strong><label>NEW</label> Kong Gateway 2.8 Increases Security and Simplifies API Management. &nbsp;&mdash;<a
+          href="https://konghq.com/blog/kong-gateway-2-8">Learn More &rarr;</a></strong>
     </div>
   </div>
   <div class="navbar-content">
@@ -28,7 +28,15 @@
     <div class="separator"></div>
     <div class="navbar-items" role="navigation" aria-label="Main menu">
       <ul class="navbar-items" role="menubar">
-        <li aria-haspopup="true" role="menuitem"
+        <li role="menuitem" class="main-menu-item hiring-badge"> 
+          <a target="_blank" href="https://konghq.com/careers/" class="navbar-item">
+          <span>
+            We're Hiring!
+          </span>
+          </a>
+        </li>
+
+        <li id="top-module-list" aria-haspopup="true" role="menuitem"
           class="navbar-item main-menu-item with-submenu{% if include.layout != 'landing-page' %} active{% endif %}"
           onclick="toggleSubmenuVisible(this)">
           <a href="/" tabindex="0" id="docs-link">Docs</a>
@@ -36,22 +44,22 @@
           <ul class="navbar-item-submenu" role="menu" aria-hidden="true">
             <div class="submenu-section">
               <li role="menuitem" class="docs-dropdown-li" tabindex="-1">
-                <a href="/gateway/" class="navbar-item navbar-item-docs">Kong Gateway</a>
+                <a href="/gateway/latest/" class="navbar-item navbar-item-docs">Kong Gateway</a>
               </li>
               <li role="menuitem" class="docs-dropdown-li" tabindex="-1">
                 <a href="/konnect/" class="navbar-item navbar-item-docs">Konnect Cloud</a>
               </li>
               <li role="menuitem" class="docs-dropdown-li" tabindex="-1">
-                <a href="/mesh/" class="navbar-item navbar-item-docs">Kong Mesh</a>
+                <a href="/mesh/latest/" class="navbar-item navbar-item-docs">Kong Mesh</a>
               </li>
               <li role="menuitem" class="docs-dropdown-li" tabindex="-1">
                 <a href="/hub/" class="navbar-item navbar-item-docs">Plugin Hub</a>
               </li>
               <li role="menuitem" class="docs-dropdown-li" tabindex="-1">
-                <a href="/deck/" class="navbar-item navbar-item-docs">decK</a>
+                <a href="/deck/latest/" class="navbar-item navbar-item-docs">decK</a>
               </li>
               <li role="menuitem" class="docs-dropdown-li" tabindex="-1">
-                <a href="/kubernetes-ingress-controller/" class="navbar-item navbar-item-docs">Kubernetes Ingress
+                <a href="/kubernetes-ingress-controller/latest/" class="navbar-item navbar-item-docs">Kubernetes Ingress
                   Controller</a>
               </li>
               <li role="menuitem" class="docs-dropdown-li" tabindex="-1">
@@ -67,7 +75,7 @@
               </li>
               <hr>
               <li role="menuitem" class="docs-dropdown-li" tabindex="-1">
-                <a href="/contributing/" class="navbar-item navbar-item-docs">Doc contribution guidelines</a>
+                <a href="/contributing/" class="navbar-item navbar-item-docs">Docs contribution guidelines</a>
               </li>
               </div>
           </ul>
@@ -82,7 +90,7 @@
           <a href="https://konghq.com/community/" class="navbar-item">Community</a>
         </li>
         <li role="menuitem" class="main-menu-item">
-          <a href="https://education.konghq.com/" class="navbar-item">Kong Academy</a>
+          <a href="{{site.links.learn}}" class="navbar-item">Kong Academy</a>
         </li>
       </ul>
       <a href="https://konghq.com/contact-sales" class="navbar-button">

@@ -5,6 +5,7 @@
 #  the files in https://github.com/Kong/docs.konghq.com/tree/main/autodoc-conf-ee
 #
 title: Configuration Reference for Kong Gateway
+source_url: https://github.com/Kong/kong-ee/blob/master/kong.conf.default
 ---
 
 ## Configuration loading
@@ -786,6 +787,16 @@ Valid values to this setting are:
 
 ---
 
+#### cluster_max_payload
+
+This sets the maximum payload size allowed to be sent across from CP to DP in
+Hybrid mode.
+
+Default is 4Mb - 4 * 1024 * 1024 due to historical reasons.
+
+**Default:** `4194304`
+
+---
 
 ### NGINX section
 
