@@ -41,5 +41,6 @@ jobs:
         with:
           # path where vale checks checking only modified files.
           files: __onlyModified
+          onlyAnnotateModifiedLines: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
