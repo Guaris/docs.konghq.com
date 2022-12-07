@@ -22,6 +22,7 @@ services. [Try it today!](https://cloud.konghq.com/quick-start)
 
 ## November 2022
 
+
 ### 2022.11.21
 
 **Application registration support in any runtime group**

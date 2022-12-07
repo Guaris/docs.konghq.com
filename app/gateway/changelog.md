@@ -134,16 +134,6 @@ see [Key management](/gateway/latest/reference/key-management/).
 
     Note that all options respect the trusted IP setting, and will ignore headers from the last hop in the chain if they are not from clients with trusted IPs.
 
-- [**Mocking**](/hub/kong-inc/mocking/) (`mocking`)
-  - Added the `included_status_codes` and `random_status_code` fields. These allow you to configure the HTTP status codes for the plugin.
-  - The plugin now lets you auto-generate a random response based on the schema definition without defining examples.
-  - You can now control behavior or obtain a specific response by sending
-   behavioral headers: `X-Kong-Mocking-Delay`, `X-Kong-Mocking-Example-Id`,
-   and `X-Kong-Mocking-Status-Code`.
-  - This plugin now supports:
-    - MIME types priority match
-    - All HTTP codes
-    - `$ref`
 
 - [**mTLS Authentication**](/hub/kong-inc/mtls-auth) (`mtls-auth`)
   - Added the `config.send_ca_dn` configuration parameter to support sending CA
