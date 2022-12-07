@@ -11,20 +11,6 @@ toc: true
 source_url: https://github.com/Kong/kong/tree/master/kong/pdk
 ---
 
-Trusted IPs module.
-
- This module can be used to determine whether or not a given IP address is
- in the range of trusted IP addresses defined by the `trusted_ips` configuration
- property.
-
- Trusted IP addresses are those that are known to send correct replacement
- addresses for clients (as per the chosen header field, for example
- X-Forwarded-*).
-
- See the [documentation on trusted IPs](https://docs.konghq.com/gateway/latest/reference/configuration/#trusted_ips).
-
-
-
 
 ## kong.ip.is_trusted(address)
 
