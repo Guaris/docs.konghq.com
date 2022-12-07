@@ -146,10 +146,7 @@ see [Key management](/gateway/latest/reference/key-management/).
 - [**Proxy Cache Advanced**](/hub/kong-inc/proxy-cache-advanced/) (`proxy-cache-advanced`)
   - Added support for integrating with Redis clusters through the `config.redis.cluster_addresses` configuration property.
 
-- [**Rate Limiting**](/hub/kong-inc/rate-limiting/) (`rate-limiting`)
-  - The HTTP status code and response body for rate-limited
-  requests can now be customized. Thanks, [@utix](https://github.com/utix)!
-  [#8930](https://github.com/Kong/kong/pull/8930)
+
 
 - [**Rate Limiting Advanced**](/hub/kong-inc/rate-limiting-advanced/) (`rate-limiting-advanced`)
   - Added support for deleting customer groups using the API.
